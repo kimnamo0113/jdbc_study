@@ -21,6 +21,7 @@ import jdbc_study.daoimpl.EmployeeDaoImpl;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
 
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class DeptEmpTransactionDaoTest {
 	static final Logger log = LogManager.getLogger();
