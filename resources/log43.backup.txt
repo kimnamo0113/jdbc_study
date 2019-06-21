@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+   <Appenders>
+      <Console name="Console" target="SYSTEM_OUT">
+         <PatternLayout pattern="%5p [%t] - %m%n" />
+      </Console>
+
+      <File name="file" fileName="./logs/jdbc_study.log" append="true">
+         <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss}] %m%n" />
+      </File>
+
+      <!-- 일자별 로그 -->
+      <RollingFile name="RollingFile_Daily">
+         <FileName>./logs/jdbc_study_daily_log</FileName>
+         <FilePattern>./logs/time-based-logs/%d{yyyy-MM-dd}.log</FilePattern>
+         <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n" />
+         <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+         </Policies>
+         <DefaultRolloverStrategy max="5" />
+      </RollingFile>
+
+      <!-- 특정크기마다 백업하여 로그 -->
+      <RollingFile name="RollingFile_FileSize">
+         <FileName>./logs/jdbc_study_size_log</FileName>
+         <FilePattern>./logs/size-based-logs/%d{yyyy-MM-dd-hh}-%i.log.zip</FilePattern>
+         <PatternLayout pattern="[%-5level] [%d{yyyy-MM-dd HH:mm:ss a}] %m%n" />
+         <Policies>
+            <SizeBasedTriggeringPolicy size="10 KB" />
+         </Policies>
+         <DefaultRolloverStrategy max="5" />
+      </RollingFile>
+   </Appenders>
+   <Loggers>
+      <Logger name="jdbc_study" level="trace" additivity="false">
+         <AppenderRef ref="Console" />
+         <AppenderRef ref="file" />
+         <AppenderRef ref="RollingFile_Daily" />
+         <AppenderRef ref="RollingFile_FileSize" />
+      </Logger>
+   </Loggers>
+</Configuration>
