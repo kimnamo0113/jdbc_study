@@ -65,7 +65,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public int insertEmployee(Employee employee) throws SQLException {
 		log.trace("insertEmployee()");
-		String sql="insert into employee values(?, ?, ?, ?, ?, ?, ?);";
+		String sql="insert into employee values(?, ?, ?, ?, ?, ?, ?)";
 		try(Connection conn = MySQLjdbcUtil.getConnection();
 				PreparedStatement pstmt=conn.prepareStatement(sql);){
 			pstmt.setInt(1, employee.getEmpNo());
