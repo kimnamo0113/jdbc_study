@@ -95,7 +95,7 @@ public class Employee {
 		return String.format("[%s, %s, %s, %s, %s, %s]", empNo, empName, title, manager.getEmpNo(), salary, dno.getDeptNo());
 	}
 
-	public Object toArray() {
+	public Object[] toArray() {
 		return new Object[] { empNo, empName, title, manager.getEmpNo(), salary, dno.getDeptNo() };
 	}
 
