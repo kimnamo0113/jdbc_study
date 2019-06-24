@@ -20,6 +20,16 @@ public class PanelEmployee extends JPanel {
 
 		initComponents();
 	}
+	
+	
+	
+	public void setDnoEidtable(Boolean bool) {
+		tfEmpno.setEditable(bool);
+	}
+
+
+	
+
 
 	private void initComponents() {
 		setLayout(new GridLayout(0, 2, 0, 0));
@@ -71,12 +81,13 @@ public class PanelEmployee extends JPanel {
 		return new Employee(Integer.parseInt(tfEmpno.getText()), tfName.getText(), tfTitle.getText(), new Employee(Integer.parseInt(tfManager.getText())), Integer.parseInt(tfSalary.getText()), new Department(Integer.parseInt(tfDno.getText())));  
 	}
 	public void setText(Employee emp) {
-		tfEmpno.setText(emp.getEmpNo()+"");;
-		tfName.setText(emp.getEmpName());;
-		tfTitle.setText(emp.getTitle());;
-		tfManager.setText(emp.getManager().getEmpNo()+"");;
-		tfSalary.setText(emp.getSalary()+"");;
-		tfDno.setText(emp.getDno().getDeptNo()+"");;
+		tfEmpno.setText(emp.getEmpNo()+"");
+		tfName.setText(emp.getEmpName());
+		tfTitle.setText(emp.getTitle());
+		
+		tfManager.setText(emp.getManager().getEmpNo()+"");
+		tfSalary.setText(emp.getSalary()+"");
+		tfDno.setText(emp.getDno().getDeptNo()+"");
 	}
 	public void clearTf() {
 		tfEmpno.setText("");

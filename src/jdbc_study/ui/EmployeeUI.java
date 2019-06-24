@@ -68,13 +68,31 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAddButton) {
-			
-			do_btnAddButton_actionPerformed(e);
+			if(e.getActionCommand().equals("추가"))
+				do_btnAddButton_actionPerformed(e);
+			if(e.getActionCommand().equals("수정"))
+				do_btnUpdateButton_actionPerformed(e);
 		}
 		if (e.getSource() == btnCancel) {
 			do_btnCancel_actionPerformed(e);
 		}
 	}
+	private void do_btnUpdateButton_actionPerformed(ActionEvent e) {
+		Employee updateEmp=pContent.getEmp();
+		int res;
+		try {
+			res=dao.updateEmployee(updateEmp);
+			if(res!=-1) {
+				JOptionPane.showMessageDialog(null, String.format("%s 가 수정되었습니다.", updateEmp.getEmpName()));
+				pContent.clearTf();
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		parent.refreshUI();
+	}
+
+
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
 		
 	}
@@ -96,6 +114,12 @@ public class EmployeeUI extends JFrame implements ActionListener {
 	
 	public void setText(Employee emp) {
 		pContent.setText(emp);
+	}
+
+
+	public void setBtnAdd(String string) {
+		btnAddButton.setText("수정");
+		pContent.setDnoEidtable(false);
 	}
 	
 }

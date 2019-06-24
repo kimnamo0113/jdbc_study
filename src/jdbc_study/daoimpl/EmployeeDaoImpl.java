@@ -94,8 +94,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public int updateEmployee(Employee employee) throws SQLException {
 		log.trace("updateEmployee()");
-		String sql="update employee set empname=?, title=?, manager=?, salary=?, dno=?, pic=?"
-				+"where empno=?";
+		String sql="update employee set empname=?, title=?, manager=?, salary=?, dno=? where empno=?";
 		try(Connection conn = MySQLjdbcUtil.getConnection();
 				PreparedStatement pstmt=conn.prepareStatement(sql);){
 			pstmt.setString(1, employee.getEmpName());
@@ -103,8 +102,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			pstmt.setInt(3, employee.getManager().getEmpNo());
 			pstmt.setInt(4, employee.getSalary());
 			pstmt.setInt(5, employee.getDno().getDeptNo());
-			pstmt.setBytes(6, employee.getPic());
-			pstmt.setInt(7, employee.getEmpNo());
+			pstmt.setInt(6, employee.getEmpNo());
 			log.trace(pstmt);
 			return pstmt.executeUpdate();
 		}

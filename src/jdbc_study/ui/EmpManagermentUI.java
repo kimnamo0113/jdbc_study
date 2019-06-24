@@ -1,8 +1,11 @@
 package jdbc_study.ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -10,15 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import jdbc_study.dao.EmployeeDao;
 import jdbc_study.daoimpl.EmployeeDaoImpl;
-import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
 import jdbc_study.ui.content.PanelEmployee;
-
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 
 public class EmpManagermentUI extends JFrame implements ActionListener {
 
@@ -95,14 +91,14 @@ public class EmpManagermentUI extends JFrame implements ActionListener {
 		
 	}
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
-		int empno=Integer.parseInt(JOptionPane.showInputDialog("수정할 부서 번호").trim());
+		int empno=Integer.parseInt(JOptionPane.showInputDialog("수정할 사원번호").trim());
 		Employee updateEmp=new Employee(empno);
 		Employee res;
 		try {
 			res=dao.selectEmployeeByNo(updateEmp);
 			if(res!=null) {
 				EmployeeUI frame = new EmployeeUI();
-				frame.setText(updateEmp);
+				frame.setText(res);
 				frame.setParent(this);
 				frame.setBtnAdd("수정");
 				frame.setVisible(true);
