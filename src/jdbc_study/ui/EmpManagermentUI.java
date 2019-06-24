@@ -91,7 +91,16 @@ public class EmpManagermentUI extends JFrame implements ActionListener {
 		
 	}
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
+				
 		int empno=Integer.parseInt(JOptionPane.showInputDialog("수정할 사원번호").trim());
+		if(empno==0) {
+			JOptionPane.showMessageDialog(null, "창을 그냥 닫았음");
+			return;
+		}
+		if(empno!=0) {
+			JOptionPane.showMessageDialog(null, "입력안했습");
+			return;
+		}
 		Employee updateEmp=new Employee(empno);
 		Employee res;
 		try {

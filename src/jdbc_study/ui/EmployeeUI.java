@@ -94,7 +94,7 @@ public class EmployeeUI extends JFrame implements ActionListener {
 
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
-		
+		pContent.clearTf();
 	}
 	protected void do_btnAddButton_actionPerformed(ActionEvent e) {
 		Employee newEmp = pContent.getEmp();

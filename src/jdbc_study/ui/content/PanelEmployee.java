@@ -3,18 +3,30 @@ package jdbc_study.ui.content;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import jdbc_study.dao.EmployeeDao;
+import jdbc_study.daoimpl.EmployeeDaoImpl;
 import jdbc_study.dto.Department;
 import jdbc_study.dto.Employee;
+import jdbc_study.ui.EmployeeListUI;
 
-public class PanelEmployee extends JPanel {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
+import java.sql.SQLException;
+import java.util.List;
+import java.awt.event.FocusEvent;
+
+public class PanelEmployee extends JPanel implements FocusListener {
 	private JTextField tfEmpno;
 	private JTextField tfName;
 	private JTextField tfTitle;
 	private JTextField tfManager;
 	private JTextField tfSalary;
 	private JTextField tfDno;
+	private EmployeeListUI frame;
 
 	public PanelEmployee() {
 
@@ -26,9 +38,6 @@ public class PanelEmployee extends JPanel {
 	public void setDnoEidtable(Boolean bool) {
 		tfEmpno.setEditable(bool);
 	}
-
-
-	
 
 
 	private void initComponents() {
@@ -59,6 +68,7 @@ public class PanelEmployee extends JPanel {
 		add(lblManager);
 
 		tfManager = new JTextField();
+		tfManager.addFocusListener(this);
 		add(tfManager);
 		tfManager.setColumns(10);
 
@@ -105,4 +115,35 @@ public class PanelEmployee extends JPanel {
 		tfSalary.setEditable(isEditable);
 		tfDno.setEditable(isEditable);
 	}
+	
+	
+	public void focusGained(FocusEvent e) {
+		if (e.getSource() == tfManager) {
+			if(tfManager.getText().trim().length()==0)
+				focusGainedTfManager(e);
+		}
+	}
+	public void focusLost(FocusEvent e) {
+		
+	}
+	protected void focusGainedTfManager(FocusEvent e) {
+		EmployeeDao dao=new EmployeeDaoImpl();
+		try {
+				List<Employee> empList=dao.selectEmployeeByAll();
+				frame = new EmployeeListUI();
+				frame.setEmpList(empList);
+				frame.setPcontent(this);
+				frame.reloadData();
+				frame.setVisible(true);
+		} catch (SQLException e1) {
+			
+		}
+	}
+	public void focuseManagerChange(String value) {
+		tfManager.setText(value);
+		tfSalary.requestFocus();
+	}
+	
+
+
 }

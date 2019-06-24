@@ -58,4 +58,6 @@ public class DepartmentListUI extends JFrame {
 	private String[] getColumnNames() {
 		return new String[] {"부서 번호", "부서 명", "층"};
 	}
+	
+	
 }

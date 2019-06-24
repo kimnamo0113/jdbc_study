@@ -11,15 +11,27 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import jdbc_study.dto.Employee;
+import jdbc_study.ui.content.PanelDepartment;
+import jdbc_study.ui.content.PanelEmployee;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.MouseEvent;
 
-public class EmployeeListUI extends JFrame {
+public class EmployeeListUI extends JFrame implements MouseListener {
 
 	private JPanel contentPane;
 	private JTable table;
 	private List<Employee> empList;
+	private PanelEmployee pContent;
+	
+	public void setPcontent(PanelEmployee pContent) {
+		this.pContent=pContent;
+	}
 	
 	public void setEmpList(List<Employee> empList) {
 		this.empList=empList;
@@ -37,7 +49,15 @@ public class EmployeeListUI extends JFrame {
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
+		table.addMouseListener(this);
 		scrollPane.setViewportView(table);
+		this.addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e) {
+            	pContent.focuseManagerChange("");
+                dispose();
+            }
+    });
+
 	}
 
 	public void reloadData() {
@@ -56,4 +76,27 @@ public class EmployeeListUI extends JFrame {
 	private String[] getColumnNames() {
 		return new String[] {"사원 번호","사원 명","직급","직속 상사","급여","부서번호"};
 	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == table) {
+			mouseClickedTable(e);
+		}
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mouseClickedTable(MouseEvent e) {
+		int row=table.getSelectedRow();
+		String value = String.valueOf(table.getValueAt(row, 0));
+		pContent.focuseManagerChange(value);
+		dispose();
+		
+	}
+
+
+
 }
